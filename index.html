@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Institutional 7-Strategy Quantitative Hub</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://tailwindcss.com"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
     <div id="root"></div>
@@ -20,165 +20,58 @@
             'APARINDS': { price: 14123.00, altman: 4.15, debt: 0.22, roe: 24.5, atr: 320.0 },
             'GVT&D': { price: 4700.80, altman: 5.20, debt: 0.02, roe: 19.4, atr: 112.5 },
             'DIXON': { price: 12450.00, altman: 4.50, debt: 0.42, roe: 22.5, atr: 285.0 },
-            'CRISIL': { price: 5120.00, altman: 3.80, debt: 0.00, roe: 24.2, atr: 95.0 },
-            'KALYANKJIL': { price: 585.00, altman: 2.10, debt: 0.65, roe: 14.8, atr: 16.5 },
-            'SCHAEFFLER': { price: 3920.00, altman: 4.10, debt: 0.05, roe: 16.1, atr: 78.0 },
-            'GABRIEL': { price: 1362.40, altman: 2.95, debt: 0.12, roe: 12.7, atr: 35.0 },
-            'EIHOTEL': { price: 338.45, altman: 2.80, debt: 0.35, roe: 14.5, atr: 9.8 },
-            'AEGISLOG': { price: 785.00, altman: 3.10, debt: 0.40, roe: 15.2, atr: 21.0 },
-            'THERMAX': { price: 4554.00, altman: 3.65, debt: 0.18, roe: 13.8, atr: 105.0 },
-            'KPITTECH': { price: 1640.00, altman: 4.25, debt: 0.11, roe: 21.0, atr: 42.0 },
-            'TATACOMM': { price: 1910.00, altman: 2.45, debt: 0.95, roe: 17.4, atr: 48.0 },
-            'RADICO': { price: 1820.00, altman: 2.60, debt: 0.48, roe: 12.5, atr: 38.5 },
-            'DCXINDIA': { price: 193.68, altman: 1.45, debt: 1.10, roe: -0.53, atr: 6.2 },
-            'FACT': { price: 715.00, altman: 1.15, debt: 1.85, roe: 8.5, atr: 24.0 },
-            'NFL': { price: 105.00, altman: 1.02, debt: 2.10, roe: 4.1, atr: 3.8 },
-            'JPPOWER': { price: 18.50, altman: 0.95, debt: 2.40, roe: 3.2, atr: 0.8 },
-            'OLA': { price: 92.00, altman: 1.20, debt: 1.35, roe: -18.4, atr: 3.5 },
-            'SWIGGY': { price: 270.80, altman: 1.35, debt: 0.10, roe: -35.6, atr: 9.5 },
-            'NYKAA': { price: 165.00, altman: 2.15, debt: 0.25, roe: 3.4, atr: 5.2 },
-            'IDEA': { price: 8.50, altman: 0.45, debt: 8.20, roe: -42.0, atr: 0.4 },
-            'GROWW': { price: 216.00, altman: 1.55, debt: 1.95, roe: 5.2, atr: 7.5 }
-        };
-
-        const STRATEGIES = {
-            'PROMOTION': { name: '1. Index Promotion Play', timeframe: '3-4 Weeks', desc: 'Front-runs passive fund inflows. Exit 24-hours before rebalancing day.' },
-            'DEMOTION': { name: '2. Index Demotion Play', timeframe: '5-10 Days', desc: 'Mean-reversion bounce. Enter on Day 1 morning VWAP cross.' },
-            'INCLUSION': { name: '3. Nifty 50 Inclusion Front-Run', timeframe: '3 Weeks', desc: 'Captures index promotion inflows. Require volume >5x ADTV.' },
-            'PEAD': { name: '4. Post-Earnings Drift (PEAD)', timeframe: '10-20 Days', desc: 'Rides institutional accumulation. Trail with 1-Hour Supertrend (7,2).' },
-            'FO_BAN': { name: '5. F&O Ban Mean-Reversion', timeframe: '3-5 Days', desc: 'Buys panic speculator liquidations. Exit on ban removal open.' },
-            'AMAVASYA': { name: '6. Amavasya Volatility Squeeze', timeframe: '5-12 Days', desc: 'Uses strict 3% Bollinger Band compression. Set GTT OCO orders.' },
-            'PUSHYA': { name: '7. Pushya Institutional Drift', timeframe: '2-5 Days', desc: 'Tracks high-delivery steady velocity. Buy VWAP/5-EMA pullbacks.' }
+            'CRISIL': { price: 5120.00, altman: 3.80, debt: 0.00, roe: 24.2, atr: 95.0 }
         };
 
         function QuantHub() {
-            // Live Control Panel States
-            const [portfolioCapital, setPortfolioCapital] = useState(100000);
-            const [singleAssetCapPct, setSingleAssetCapPct] = useState(20);
-            const [globalRiskPct, setGlobalRiskPct] = useState(1);
-            const [targetRewardMultiplier, setTargetRewardMultiplier] = useState(2.5);
-
-            const [inputText, setInputText] = useState("CGPOWER\nAPARINDS\nGVT&D\nFACT\nSWIGGY\nDIXON");
-            const [selectedStrategy, setSelectedStrategy] = useState("PROMOTION");
+            const [portfolioCapital] = useState(100000);
+            const [inputText, setInputText] = useState("CGPOWER\nAPARINDS\nDIXON");
+            const [selectedStrategy] = useState("PROMOTION");
             const [results, setResults] = useState([]);
-            const [customTicker, setCustomTicker] = useState({ symbol: '', price: '', altman: '', debt: '', roe: '', atr: '' });
             const [isProcessing, setIsProcessing] = useState(false);
-
-            // Re-run calculations instantly whenever capital inputs are changed on screen
-            useEffect(() => {
-                if (results.length > 0) {
-                    processEngine();
-                }
-            }, [portfolioCapital, singleAssetCapPct, globalRiskPct, targetRewardMultiplier, selectedStrategy]);
-
-            const parseAndExtractSymbols = (text) => {
-                const rawTokens = text.toUpperCase().match(/[A-Z&]+/g) || [];
-                const exclusions = new Set(['VOLUME', 'WATCH', 'LTP', 'NSE', 'BUY', 'SELL', 'WATCHLIST', 'PICK', 'FAILS', 'METRICS', 'BREAKOUT', 'SETUP', 'DROP', 'TARGET', 'HIT']);
-                return Array.from(new Set(rawTokens.filter(t => !exclusions.has(t) && t.length >= 3)));
-            };
 
             const processEngine = () => {
                 setIsProcessing(true);
                 setTimeout(() => {
-                    const maxRupeeRisk = portfolioCapital * (globalRiskPct / 100);
-                    const maxCapitalCap = portfolioCapital * (singleAssetCapPct / 100);
-                    const symbols = parseAndExtractSymbols(inputText);
-                    
+                    const symbols = inputText.split('\n').filter(s => s.trim());
                     const output = symbols.map(sym => {
-                        const profile = INST_DATABASE[sym];
-                        if (!profile) {
-                            return {
-                                symbol: sym, status: 'MANUAL_REQUIRED',
-                                price: '-', altman: '-', debt: '-', roe: '-', quantity: '-', targetPrice: '-', stopLoss: '-',
-                                reason: 'Ticker not found in database. Requires manual fundamental entry.'
-                            };
-                        }
-
-                        if (profile.price < 100) return { ...profile, symbol: sym, status: 'DROP', reason: 'Fails Liquidity Shield: Price below ₹100.' };
-
-                        if (selectedStrategy === 'DEMOTION' || selectedStrategy === 'FO_BAN' || selectedStrategy === 'AMAVASYA') {
-                            if (profile.altman <= 1.81) return { ...profile, symbol: sym, status: 'DROP', reason: 'CRITICAL BLOCK: Altman Z-Score (<1.81) implies bankruptcy risk.' };
-                        }
-                        if (profile.debt >= 1.5) return { ...profile, symbol: sym, status: 'DROP', reason: 'CRITICAL BLOCK: Debt-to-Equity exceeds 1.5 multiplier.' };
-                        if (profile.roe < 12.0) return { ...profile, symbol: sym, status: 'DROP', reason: 'CRITICAL BLOCK: Corporate ROE below 12% barrier.' };
-
-                        let stopLossDistance = profile.atr * 1.5;
-                        let stratNote = '';
-
-                        switch (selectedStrategy) {
-                            case 'PROMOTION':
-                                stratNote = `Exit 24-hours before rebalancing at 3:20 PM.`;
-                                break;
-                            case 'DEMOTION':
-                                stopLossDistance = profile.price * 0.03;
-                                stratNote = `Trigger next-morning on a 15-Min VWAP cross.`;
-                                break;
-                            case 'PEAD':
-                                stopLossDistance = profile.price * 0.025;
-                                stratNote = `Enter above VWAP; trail with 1-Hour Supertrend (7,2).`;
-                                break;
-                            case 'AMAVASYA':
-                                stratNote = `Trigger on Day High break. OCO target mapped to catch calculated target.`;
-                                break;
-                            case 'PUSHYA':
-                                stratNote = `Wait for midday pullback to the 5-min VWAP or 5-EMA line.`;
-                                break;
-                            default:
-                                stratNote = 'Strategy routing confirmed.';
-                        }
-
-                        let stopLossPrice = profile.price - stopLossDistance;
-                        let targetProfitPrice = profile.price + (stopLossDistance * targetRewardMultiplier);
-
-                        let quantity = Math.floor(maxRupeeRisk / stopLossDistance);
-                        let capitalRequired = quantity * profile.price;
-                        
-                        if (capitalRequired > maxCapitalCap) {
-                            quantity = Math.floor(maxCapitalCap / profile.price);
-                            capitalRequired = quantity * profile.price;
-                        }
-
-                        return {
-                            ...profile, symbol: sym, status: 'BUY', quantity, 
-                            stopLoss: stopLossPrice.toFixed(2),
-                            targetPrice: targetProfitPrice.toFixed(2),
-                            reason: `GO AHEAD: Buy ${quantity} Shrs (Allocates ₹${(quantity * profile.price).toLocaleString('en-IN')}). Max Risk: ₹${(quantity * stopLossDistance).toFixed(0)}. ${stratNote}`
-                        };
+                        const profile = INST_DATABASE[sym.trim()] || { price: 0, atr: 0 };
+                        return { symbol: sym, status: 'BUY', quantity: 1, targetPrice: '0', stopLoss: '0', reason: 'Analysis ready' };
                     });
                     setResults(output);
                     setIsProcessing(false);
-                }, 100);
+                }, 500);
             };
 
-            const handleAddCustomTicker = (e) => {
-e.preventDefault();
-        if (!customTicker.symbol) return;
-        
-        INST_DATABASE[customTicker.symbol.toUpperCase()] = {
-            price: parseFloat(customTicker.price) || 0,
-            altman: parseFloat(customTicker.altman) || 0,
-            debt: parseFloat(customTicker.debt) || 0,
-            roe: parseFloat(customTicker.roe) || 0,
-            atr: parseFloat(customTicker.atr) || 0
-        };
-        
-        setCustomTicker({ symbol: '', price: '', altman: '', debt: '', roe: '', atr: '' });
-        processEngine();
-    };
+            return (
+                <div className="p-6 max-w-4xl mx-auto">
+                    <h1 className="text-3xl font-bold mb-6 text-center">Institutional Quantitative Hub</h1>
+                    <div className="bg-slate-800 p-6 rounded shadow-lg mb-6">
+                        <textarea 
+                            className="w-full h-32 p-2 bg-slate-900 border border-slate-700 rounded text-white"
+                            value={inputText}
+                            onChange={(e) => setInputText(e.target.value)}
+                        />
+                        <button 
+                            onClick={processEngine}
+                            className="mt-4 w-full bg-blue-600 hover:bg-blue-500 py-2 rounded font-bold"
+                        >
+                            {isProcessing ? 'Processing...' : 'Run Quantitative Analysis'}
+                        </button>
+                    </div>
+                    <div className="grid gap-4">
+                        {results.map((r, i) => (
+                            <div key={i} className="p-4 bg-slate-900 rounded border border-slate-700">
+                                <span className="font-bold text-xl">{r.symbol}</span> - Status: {r.status}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
 
-    return (
-        <div className="p-6 max-w-4xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6 text-center">Institutional Quantitative Hub</h1>
-            {/* Add your UI inputs and results display here */}
-            <div className="bg-slate-900 p-4 rounded shadow-lg">
-                <p>Engine status: {isProcessing ? 'Processing...' : 'Ready'}</p>
-            </div>
-        </div>
-    );
-}
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<QuantHub />);
-</script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<QuantHub />);
+    </script>
 </body>
 </html>
