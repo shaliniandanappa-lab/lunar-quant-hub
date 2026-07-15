@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Institutional 7-Strategy Quantitative Hub</title>
-    <script src="https://unpkg.com" crossorigin></script>
-    <script src="https://unpkg.com" crossorigin></script>
-    <script src="https://unpkg.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
@@ -151,3 +151,34 @@
             };
 
             const handleAddCustomTicker = (e) => {
+e.preventDefault();
+        if (!customTicker.symbol) return;
+        
+        INST_DATABASE[customTicker.symbol.toUpperCase()] = {
+            price: parseFloat(customTicker.price) || 0,
+            altman: parseFloat(customTicker.altman) || 0,
+            debt: parseFloat(customTicker.debt) || 0,
+            roe: parseFloat(customTicker.roe) || 0,
+            atr: parseFloat(customTicker.atr) || 0
+        };
+        
+        setCustomTicker({ symbol: '', price: '', altman: '', debt: '', roe: '', atr: '' });
+        processEngine();
+    };
+
+    return (
+        <div className="p-6 max-w-4xl mx-auto">
+            <h1 className="text-3xl font-bold mb-6 text-center">Institutional Quantitative Hub</h1>
+            {/* Add your UI inputs and results display here */}
+            <div className="bg-slate-900 p-4 rounded shadow-lg">
+                <p>Engine status: {isProcessing ? 'Processing...' : 'Ready'}</p>
+            </div>
+        </div>
+    );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<QuantHub />);
+</script>
+</body>
+</html>
